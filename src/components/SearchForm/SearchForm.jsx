@@ -25,7 +25,7 @@ const SearchForm = () => {
               id="search__checkbox"
               onClick={clickChecbox}
             />
-            <div className="search__slider search__slider_round"></div>
+            <span className="search__slider search__slider_round"></span>
           </label>
           <label className="search__label-text" htmlFor="search__checkbox">
             Короткометражки

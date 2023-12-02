@@ -20,5 +20,5 @@
 
 .links-hover:hover {
   opacity: 0.6;
-  transition: 0, 5s;
+  transition: 0.5s;
 }

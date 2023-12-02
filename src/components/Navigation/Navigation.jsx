@@ -11,7 +11,7 @@ const Navigation = () => {
   return (
     <nav className={`navigation ${Authorized === true ? 'navigation_invisible' : ''}`}>
       {Authorized === true ? (
-        <ul className="navigation__container">
+        <div className="navigation__container">
           <ul className="navigation__wrapper">
             <li className="navigation__item">
               <NavLink
@@ -45,7 +45,7 @@ const Navigation = () => {
           <li className="navigation__item">
             <AccountButton></AccountButton>
           </li>
-        </ul>
+        </div>
       ) : (
         <ul className="navigation__container navigation__container_auth">
           <li className="navigation__item">

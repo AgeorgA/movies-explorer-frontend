@@ -16,18 +16,14 @@ const AuthForm = ({
       <h1 className="auth__title">{title}</h1>
       <form className="auth__form" onSubmit={onClickLogin}>
         {props.children}
-        <button
-          // onClick={onClickLogin}
-          type="submit"
-          className="auth__btn"
-        >
+        <button type="submit" className="auth__btn">
           {buttonText}
         </button>
       </form>
       <div className="auth__wrapper">
         <p className="auth__paragraph">
           {authMessage}
-          <span className="auth__link">
+          <span className="auth__link-place">
             <Link to={endpoint} className="auth__link links-hover">
               {authLinkMessage}
             </Link>

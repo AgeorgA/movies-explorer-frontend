@@ -6,7 +6,7 @@ const Footer = () => {
   const { pathname } = useLocation();
 
   return pathname === '/' || pathname === '/movies' || pathname === '/saved-movies' ? (
-    <footer className={`footer ${pathname === '/movies' ? 'footer__movies' : ''}`}>
+    <footer className="footer">
       <h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
       <div className="footer__line"></div>
       <div className="footer__container">
