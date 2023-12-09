@@ -1,34 +1,83 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { currentUserContext } from '../../contexts/CurrentUserContext';
+import { nameRegex } from '../../utils/constants';
+import useValidationsForms from '../../hooks/useValidationsForms';
 import './Profile.css';
 
-const Profile = ({ onAuth }) => {
+const Profile = ({
+  onRemoveCookie,
+  sourceInfoTooltips,
+  onResetSourceInfoTooltips,
+  onUpdateUserInfo,
+  onBlockedButton
+}) => {
+  const { name, email } = useContext(currentUserContext);
+
   const [isVisible, setIsVisible] = useState(true);
+  const [isRedact, setIsRedact] = useState(true);
+  const [changesInput, setChangesInput] = useState({
+    name: '',
+    email: ''
+  });
+
+  const { inputValues, errMessage, isValid, handleChange, setInputValues, setIsValid } =
+    useValidationsForms();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (isValid) {
+      onUpdateUserInfo(inputValues);
+      setIsRedact(true);
+    }
+  };
 
   const handleRedact = e => {
     e.preventDefault();
-    if (isVisible === true) {
-      return setIsVisible(false);
-    }
-    return setIsVisible(true);
+    onResetSourceInfoTooltips();
+    setIsVisible(!isVisible);
+    setIsValid(true);
+    setIsRedact(false);
   };
+
+  useEffect(() => {
+    setInputValues({ name, email });
+    setChangesInput({ name, email });
+  }, [name, email]);
+
+  useEffect(() => {
+    if (inputValues.name === changesInput.name && inputValues.email === changesInput.email) {
+      setIsRedact(true);
+    } else {
+      setIsRedact(false);
+    }
+  }, [inputValues]);
+
+  useEffect(() => {
+    if (sourceInfoTooltips.isSuccess) {
+      setIsVisible(true);
+    }
+  }, [sourceInfoTooltips]);
 
   return (
     <main className="profile">
       <div className="profile__container">
-        <h1 className="profile__title">Привет, Виталий!</h1>
+        <h1 className="profile__title">{`Привет, ${name}!`}</h1>
         <form className="profile__form" onSubmit={handleRedact}>
           <label htmlFor="email" className="profile__label">
             Имя
             <input
+              className="profile__input"
               placeholder="Введите имя"
-              disabled={isVisible}
+              value={inputValues.name ?? ''}
+              name="name"
               type="text"
               id="email"
-              className="profile__input"
+              pattern={nameRegex}
+              onChange={handleChange}
               required
             />
-            <span className="profile__error">Пожалуйста, используйте не менее 4 символов.</span>
+            <span className="profile__error">{errMessage.name}</span>
           </label>
 
           <div className="profile__line"></div>
@@ -36,35 +85,39 @@ const Profile = ({ onAuth }) => {
           <label htmlFor="name" className="profile__label">
             E-mail
             <input
-              disabled={isVisible}
+              className="profile__input"
               placeholder="Введите e-mail"
+              value={inputValues.email ?? ''}
+              name="email"
               type="email"
               id="name"
-              className="profile__input"
+              pattern="[a-z0-9]+@[a-z0-9]+\.[a-z0-9]{2,3}"
+              onChange={handleChange}
               required
             />
-            <span className="profile__error">Пожалуйста, используйте не менее 4 символов.</span>
+            <span className="profile__error">{errMessage.email}</span>
           </label>
 
           <span
             className={`profile__error-submit ${
               isVisible === false ? 'profile__error-submit_show' : ''
-            }`}
+            } ${sourceInfoTooltips.isSuccess ? 'profile__error-submit_success' : ''}`}
           >
-            При обновлении профиля произошла ошибка.
+            {sourceInfoTooltips.message}
           </span>
           <button
-            className={`profile__button-save  ${
-              isVisible === false ? 'profile__btn-save_show' : ''
-            } `}
+            disabled={!isValid || onBlockedButton || isRedact}
+            className={`profile__btn-save ${isVisible === false ? 'profile__btn-save_show' : ''}`}
           >
             Сохранить
           </button>
         </form>
+
         <button
+          disabled={isRedact || !isValid}
           onClick={handleRedact}
-          className={`profile__button-redact ${
-            isVisible === true ? 'profile__button-redact_show' : ''
+          className={`profile__btn-redact ${
+            isVisible === true ? 'profile__btn-redact_show' : ''
           } links-hover`}
         >
           Редактировать
@@ -73,7 +126,7 @@ const Profile = ({ onAuth }) => {
         <Link
           to="/"
           className={`profile__link ${isVisible === true ? 'profile__link_show' : ''} links-hover`}
-          onClick={onAuth}
+          onClick={onRemoveCookie}
         >
           Выйти из аккаунта
         </Link>

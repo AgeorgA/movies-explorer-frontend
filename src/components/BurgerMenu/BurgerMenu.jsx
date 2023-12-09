@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import AccountButton from '../AccountButton/AccountButton';
 import './BurgerMenu.css';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-const BurgerMenu = () => {
-  const Authorized = React.useContext(CurrentUserContext);
+const BurgerMenu = ({ isLoggedIn }) => {
   const [isChecked, setChecked] = useState(false);
 
   const togleChecked = () => {
@@ -22,8 +20,8 @@ const BurgerMenu = () => {
 
   return (
     <>
-      {Authorized === true ? (
-        <div className={`burger-menu ${isChecked === true ? '' : ''}`}>
+      {isLoggedIn === true ? (
+        <div div className={`burger-menu ${isChecked === true ? '' : ''}`}>
           <input
             checked={isChecked}
             onChange={handlerChecked}
@@ -105,9 +103,7 @@ const BurgerMenu = () => {
             </ul>
           </nav>
         </div>
-      ) : (
-        console.log('123')
-      )}
+      ) : null}
     </>
   );
 };

@@ -1,16 +1,12 @@
 import React from 'react';
-import './Navigation.css';
 import { Link, NavLink } from 'react-router-dom';
 import AccountButton from '../AccountButton/AccountButton';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import './Navigation.css';
 
-const Navigation = () => {
-  const Authorized = React.useContext(CurrentUserContext);
-  console.log(Authorized);
-
+const Navigation = ({ isLoggedIn }) => {
   return (
-    <nav className={`navigation ${Authorized === true ? 'navigation_invisible' : ''}`}>
-      {Authorized === true ? (
+    <nav className={`navigation ${isLoggedIn === true ? 'navigation_invisible' : ''}`}>
+      {isLoggedIn === true ? (
         <div className="navigation__container">
           <ul className="navigation__wrapper">
             <li className="navigation__item">
