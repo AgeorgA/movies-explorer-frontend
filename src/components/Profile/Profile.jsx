@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { currentUserContext } from '../../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { nameRegex } from '../../utils/constants';
 import useValidationsForms from '../../hooks/useValidationsForms';
 import './Profile.css';
@@ -12,7 +12,7 @@ const Profile = ({
   onUpdateUserInfo,
   onBlockedButton
 }) => {
-  const { name, email } = useContext(currentUserContext);
+  const { name, email } = useContext(CurrentUserContext);
 
   const [isVisible, setIsVisible] = useState(true);
   const [isRedact, setIsRedact] = useState(true);
@@ -63,7 +63,7 @@ const Profile = ({
     <main className="profile">
       <div className="profile__container">
         <h1 className="profile__title">{`Привет, ${name}!`}</h1>
-        <form className="profile__form" onSubmit={handleRedact}>
+        <form className="profile__form" onSubmit={handleSubmit}>
           <label htmlFor="email" className="profile__label">
             Имя
             <input

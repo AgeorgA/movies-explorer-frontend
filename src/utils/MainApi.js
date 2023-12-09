@@ -9,14 +9,15 @@ const getResponseData = res => {
   return Promise.reject(`Ошибка: ${res.status}`);
 };
 
-export const register = ({ email, password, name }) => {
+export const register = ({ name, email, password }) => {
   return fetch(`${mainApiUrl}${routes.routeRegister}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ email, password, name })
+    credentials: 'include',
+    body: JSON.stringify({ name, email, password })
   }).then(res => {
     return getResponseData(res);
   });
@@ -29,6 +30,7 @@ export const authorize = (email, password) => {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({ email, password })
   })
     .then(res => {
@@ -46,7 +48,8 @@ export const logout = () => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
-    }
+    },
+    credentials: 'include'
   }).then(res => {
     return getResponseData(res);
   });
@@ -58,7 +61,8 @@ export const getUser = () => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
-    }
+    },
+    credentials: 'include'
   }).then(res => {
     return getResponseData(res);
   });
@@ -71,6 +75,7 @@ export const updateUserInfo = ({ name, email }) => {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({ name, email })
   }).then(res => {
     return getResponseData(res);
@@ -84,6 +89,7 @@ export const savedMovies = movie => {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
+    credentials: 'include',
     body: JSON.stringify({
       country: movie.country,
       director: movie.director,
@@ -108,7 +114,8 @@ export const getMovies = () => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
-    }
+    },
+    credentials: 'include'
   }).then(res => {
     return getResponseData(res);
   });
@@ -120,7 +127,8 @@ export const deleteMovie = movieId => {
     method: 'DELETE',
     headers: {
       authorization: `Bearer ${token}`
-    }
+    },
+    credentials: 'include'
   }).then(res => {
     return getResponseData(res);
   });

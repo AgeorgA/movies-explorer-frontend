@@ -2,8 +2,7 @@ export const configApiBeatFilm = {
   baseFilmsApiUrl: 'https://api.nomoreparties.co/beatfilm-movies'
 };
 
-export const emailRegex =
-  '/^((([0-9A-Za-z]{1}[-0-9A-z]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}.){1,2}[-A-Za-z]{2,})$/u';
+export const emailRegex = '/^[w-.]+@([w-]+.)+[w-]{2,4}$/g';
 export const nameRegex = '[A-Za-zА-Яа-яЁё\\s\\-]+';
 
 export const codeError = {
