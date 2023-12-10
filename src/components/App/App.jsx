@@ -108,9 +108,9 @@ function App() {
       });
   };
 
-  const handlerRegister = ({ email, password, name }) => {
+  const handlerRegister = ({ name, email, password }) => {
     setIsBlockedButton(true);
-    register({ email, password, name })
+    register({ name, email, password })
       .then(res => {
         handlerLogin({ email, password });
       })
@@ -170,7 +170,11 @@ function App() {
   const handleSignOut = () => {
     logout()
       .then(res => {
-        localStorage.removeItem('jwt');
+        console.log(res.exit);
+        resetSourceInfoTooltips();
+        localStorage.removeItem('moviesFullList');
+        localStorage.removeItem('request');
+        localStorage.removeItem('checkboxMoviesStorage');
         setAuthorized(false);
         navigate('/', { replace: true });
       })

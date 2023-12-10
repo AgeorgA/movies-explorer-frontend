@@ -23,7 +23,7 @@ export const register = ({ name, email, password }) => {
   });
 };
 
-export const authorize = (email, password) => {
+export const authorize = ({ email, password }) => {
   return fetch(`${mainApiUrl}${routes.routeAuth}`, {
     method: 'POST',
     headers: {
@@ -32,14 +32,9 @@ export const authorize = (email, password) => {
     },
     credentials: 'include',
     body: JSON.stringify({ email, password })
-  })
-    .then(res => {
-      return getResponseData(res);
-    })
-    .then(data => {
-      localStorage.setItem('jwt', data.token);
-      return data;
-    });
+  }).then(res => {
+    return getResponseData(res);
+  });
 };
 
 export const logout = () => {
@@ -55,7 +50,7 @@ export const logout = () => {
   });
 };
 
-export const getUser = () => {
+export const getUser = token => {
   return fetch(`${mainApiUrl}${routes.routeCheckJwl}`, {
     method: 'GET',
     headers: {

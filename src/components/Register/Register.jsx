@@ -39,7 +39,7 @@ const Register = ({
           idInput={'name'}
           nameInput={'name'}
           placeholderInput={'Введите имя'}
-          inptValue={inputValues.name ?? ''}
+          inputValue={inputValues.name ?? ''}
           erorrMessage={errMessage.name ?? ''}
           onChange={handleChange}
           pattern={nameRegex}
@@ -51,7 +51,7 @@ const Register = ({
           idInput={'email'}
           nameInput={'email'}
           placeholderInput={'Введите email'}
-          inptValue={inputValues.email ?? ''}
+          inputValue={inputValues.email ?? ''}
           erorrMessage={errMessage.email ?? ''}
           onChange={handleChange}
           pattern={emailRegex}
@@ -63,10 +63,10 @@ const Register = ({
           idInput={'pwd'}
           nameInput={'password'}
           placeholderInput={'Введите пароль'}
-          inptValue={inputValues.password ?? ''}
+          inputValue={inputValues.password ?? ''}
           erorrMessage={errMessage.password ?? ''}
           onChange={handleChange}
-          minLength="6"
+          minLength="8"
         />
       </AuthForm>
     </main>
