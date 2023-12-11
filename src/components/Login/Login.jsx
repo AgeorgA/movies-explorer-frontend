@@ -11,7 +11,10 @@ const Login = ({ onLogin, sourceInfoTooltips, onBlockedButton, onResetSourceInfo
   const handleSubmit = e => {
     e.preventDefault();
     if (isValid) {
-      onLogin(inputValues);
+      onLogin({
+        email: inputValues.email,
+        password: inputValues.password
+      });
     }
   };
 
@@ -23,7 +26,7 @@ const Login = ({ onLogin, sourceInfoTooltips, onBlockedButton, onResetSourceInfo
         authMessage={'Ещё не зарегистрированы? '}
         authLinkMessage={'Регистрация'}
         endpoint={'/signup'}
-        onClickLogin={handleSubmit}
+        onSubmit={handleSubmit}
         onBlockedButton={onBlockedButton}
         onResetSourceInfoTooltips={onResetSourceInfoTooltips}
         onDisabled={isValid}

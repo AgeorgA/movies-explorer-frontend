@@ -136,12 +136,14 @@ function App() {
   };
 
   const handlerLogin = ({ email, password }) => {
-    const date = { email, password };
     setIsBlockedButton(true);
-    authorize(date)
+    authorize(email, password)
       .then(res => {
-        setAuthorized(true);
-        navigate('/movies', { replace: true });
+        if (res) {
+          setAuthorized(true);
+
+          navigate('/movies', { replace: true });
+        }
       })
       .catch(err => {
         console.log(err);
@@ -172,6 +174,7 @@ function App() {
       .then(res => {
         console.log(res.exit);
         resetSourceInfoTooltips();
+        localStorage.removeItem('jwt');
         localStorage.removeItem('moviesFullList');
         localStorage.removeItem('request');
         localStorage.removeItem('checkboxMoviesStorage');

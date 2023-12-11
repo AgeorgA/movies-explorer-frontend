@@ -17,7 +17,7 @@ export const register = ({ name, email, password }) => {
       'Content-Type': 'application/json'
     },
     credentials: 'include',
-    body: JSON.stringify({ name, email, password })
+    body: JSON.stringify({ name: name, email: email, password: password })
   }).then(res => {
     return getResponseData(res);
   });
@@ -55,7 +55,8 @@ export const getUser = token => {
     method: 'GET',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
     },
     credentials: 'include'
   }).then(res => {
@@ -63,11 +64,11 @@ export const getUser = token => {
   });
 };
 
-export const updateUserInfo = ({ name, email }) => {
+export const updateUserInfo = (name, email) => {
   return fetch(`${mainApiUrl}${routes.routeCheckJwl}`, {
     method: 'PATCH',
     headers: {
-      Accept: 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
       'Content-Type': 'application/json'
     },
     credentials: 'include',
