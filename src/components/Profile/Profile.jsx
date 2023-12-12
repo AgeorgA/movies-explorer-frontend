@@ -107,7 +107,9 @@ const Profile = ({
           </span>
           <button
             disabled={!isValid || onBlockedButton || isRedact}
-            className={`profile__btn-save ${isVisible === false ? 'profile__btn-save_show' : ''}`}
+            className={`profile__button-save ${
+              isVisible === false ? 'profile__button-save_show' : ''
+            }`}
           >
             Сохранить
           </button>
@@ -116,8 +118,8 @@ const Profile = ({
         <button
           disabled={isRedact || !isValid}
           onClick={handleRedact}
-          className={`profile__btn-redact ${
-            isVisible === true ? 'profile__btn-redact_show' : ''
+          className={`profile__button-redact ${
+            isVisible === true ? 'profile__button-redact_show' : ''
           } links-hover`}
         >
           Редактировать

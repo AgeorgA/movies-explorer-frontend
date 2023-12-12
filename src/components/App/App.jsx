@@ -108,10 +108,10 @@ function App() {
       });
   };
 
-  const handlerRegister = ({ name, email, password }) => {
+  const handlerRegister = ({ email, password, name }) => {
     setIsBlockedButton(true);
-    register({ name, email, password })
-      .then(res => {
+    register({ email, password, name })
+      .then(() => {
         handlerLogin({ email, password });
       })
       .catch(err => {
@@ -136,14 +136,12 @@ function App() {
   };
 
   const handlerLogin = ({ email, password }) => {
+    const date = { email, password };
     setIsBlockedButton(true);
-    authorize(email, password)
+    authorize(date)
       .then(res => {
-        if (res) {
-          setAuthorized(true);
-
-          navigate('/movies', { replace: true });
-        }
+        setAuthorized(true);
+        navigate('/movies', { replace: true });
       })
       .catch(err => {
         console.log(err);
@@ -174,7 +172,6 @@ function App() {
       .then(res => {
         console.log(res.exit);
         resetSourceInfoTooltips();
-        localStorage.removeItem('jwt');
         localStorage.removeItem('moviesFullList');
         localStorage.removeItem('request');
         localStorage.removeItem('checkboxMoviesStorage');
