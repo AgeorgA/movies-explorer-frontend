@@ -117,11 +117,11 @@ export const getMovies = () => {
 };
 
 export const deleteMovie = movieId => {
-  const token = localStorage.getItem('jwt');
   return fetch(`${mainApiUrl}${routes.routeMovies}/${movieId}`, {
     method: 'DELETE',
     headers: {
-      authorization: `Bearer ${token}`
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
     },
     credentials: 'include'
   }).then(res => {

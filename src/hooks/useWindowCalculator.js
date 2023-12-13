@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 const useWindowCalculator = () => {
-  
   const [moviesDisplay, setMoviesDisplay] = useState(0);
   const [moviesAddDisplay, setMoviesAddDisplay] = useState(0);
   const [relationWidht, setRelationWidht] = useState(undefined);
@@ -17,26 +16,22 @@ const useWindowCalculator = () => {
         time = null;
         handleResize();
       }, 1);
-    };
-  }
+    }
+  };
 
   const widthWindow = window.screen.width;
 
   useEffect(() => {
-
     if (relationWidht >= 1200) {
       setMoviesDisplay(16);
       setMoviesAddDisplay(4);
-    }
-    else if (relationWidht >= 960) {
+    } else if (relationWidht >= 960) {
       setMoviesDisplay(12);
       setMoviesAddDisplay(3);
-    }
-    else if (relationWidht >= 742) {
+    } else if (relationWidht >= 742) {
       setMoviesDisplay(8);
       setMoviesAddDisplay(2);
-    }
-    else if (relationWidht >= 0) {
+    } else if (relationWidht >= 0) {
       setMoviesDisplay(5);
       setMoviesAddDisplay(2);
     }
@@ -45,7 +40,12 @@ const useWindowCalculator = () => {
   const addCards = () => {
     setMoviesDisplay(moviesDisplay + moviesAddDisplay);
   };
-  return { addCards, moviesDisplay, resizeDelay, handleResize }
+
+  const defaultDisplay = () => {
+    setMoviesDisplay(moviesDisplay);
+  };
+
+  return { addCards, moviesDisplay, resizeDelay, handleResize, defaultDisplay };
 };
 
 export default useWindowCalculator;

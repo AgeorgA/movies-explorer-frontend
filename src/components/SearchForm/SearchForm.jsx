@@ -5,7 +5,6 @@ import { message } from '../../utils/constants';
 
 const SearchForm = ({ onSubmit, isLoading, isChecked, onChange, oldRequest }) => {
   const [errSearchMessage, setErrSearchMessage] = useState(message.searchPlaceholderInput);
-
   const inputSearch = useRef(null);
 
   const listenerValidation = isValid => {
@@ -33,6 +32,10 @@ const SearchForm = ({ onSubmit, isLoading, isChecked, onChange, oldRequest }) =>
     }
   }, []);
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   return (
     <section className="search">
       <div className="search__container">
@@ -55,6 +58,7 @@ const SearchForm = ({ onSubmit, isLoading, isChecked, onChange, oldRequest }) =>
           <button
             type="submit"
             disabled={isLoading}
+            onClick={refreshPage}
             className="search__button links-hover"
           ></button>
         </form>

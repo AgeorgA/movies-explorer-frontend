@@ -25,12 +25,7 @@ const MoviesCard = ({
 
   const handleClickSave = e => {
     e.preventDefault();
-    if (isMovieSaved) {
-      onDeleteSaveFilm(movie._id);
-    } else {
-      onSaveFilms(movie);
-    }
-    setIsMovieSaved(prevState => !prevState);
+    onSaveFilms(movie);
   };
 
   const handleClickDeleteSaveFilm = () => {
@@ -61,6 +56,7 @@ const MoviesCard = ({
           ></button>
         ) : (
           <button
+            id={`movie-card__btn_${movie._id}`}
             className={`movie-card__btn ${
               checkSaved ? 'movie-card__btn_delete-saved' : ''
             } links-hover`}

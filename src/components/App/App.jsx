@@ -70,21 +70,13 @@ function App() {
   const handleDeleteSaveFilm = movieId => {
     setIsBlockedButton(true);
 
-    const handledMovie = savedFilms.find(item => {
-      if (pathname === '/saved-movies') {
-        return item.movieId === movieId;
-      } else {
-        return item.movieId === movieId;
-      }
-    });
-
-    const id = handledMovie ? handledMovie.id : movieId;
-
-    deleteMovie(id)
+    deleteMovie(movieId)
       .then(res => {
-        const updateList = savedFilms.filter(movie => movie._id !== id);
-        setIsBlockedButton(false);
-        setSavedFilms(updateList);
+        setSavedFilms(
+          savedFilms.filter(movie => {
+            return movie._id !== movieId;
+          })
+        );
       })
       .catch(err => {
         console.log(err);
